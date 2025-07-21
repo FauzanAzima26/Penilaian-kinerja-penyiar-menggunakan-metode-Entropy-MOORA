@@ -29,7 +29,14 @@ class KriteriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'tipe' => 'required|in:benefit,cost',
+        ]);
+
+        Kriteria::create($validated);
+
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -64,14 +71,11 @@ class KriteriaController extends Controller
         //
     }
 
-public function getData(Request $request)
-{
-    Log::info("getData() dipanggil");
+    public function getData(Request $request)
+    {
+        Log::info("getData() dipanggil");
 
-    $data = Kriteria::select('id', 'nama', 'tipe')->get();
-    return response()->json(['data' => $data], 200, ['Content-Type' => 'application/json']);
-
-}
-
-
+        $data = Kriteria::select('id', 'nama', 'tipe')->get();
+        return response()->json(['data' => $data], 200, ['Content-Type' => 'application/json']);
+    }
 }
