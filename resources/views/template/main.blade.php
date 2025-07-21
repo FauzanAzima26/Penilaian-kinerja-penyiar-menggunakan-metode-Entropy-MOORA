@@ -29,6 +29,10 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
 </head>
 
 <body>
@@ -71,6 +75,10 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets') }}/lib/chart/chart.min.js"></script>
     <script src="{{ asset('assets') }}/lib/easing/easing.min.js"></script>
@@ -82,6 +90,8 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('assets') }}/js/main.js"></script>
+
+    @stack('js')
 </body>
 
 </html>
