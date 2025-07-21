@@ -1,9 +1,9 @@
 let isEdit = false;
 let editId = null;
 
-$("#tabel-kriteria").DataTable({
+$("#tabel-penyiar").DataTable({
     ajax: {
-        url: "/kriteria/data",
+        url: "/penyiar/data",
         dataSrc: "data",
         error: function (xhr, error, thrown) {
             console.log("AJAX Error:", xhr.responseText);
@@ -16,8 +16,8 @@ $("#tabel-kriteria").DataTable({
                 return meta.row + meta.settings._iDisplayStart + 1;
             },
         },
-        { data: "nama" },
-        { data: "tipe" },
+        { data: "nama" }, // dari penyiar
+        { data: "email" }, // dari join dengan users
         {
             data: null,
             orderable: false,
@@ -34,25 +34,25 @@ $("#tabel-kriteria").DataTable({
 
 $("#add").on("click", function () {
     isEdit = false;
-    $("#form-kriteria")[0].reset();
-    $("#kriteria_id").val("");
-    $("#modalKriteria").modal("show");
+    $("#form-penyiar")[0].reset();
+    $("#penyiar_id").val("");
+    $("#modalPenyiar").modal("show");
 });
 
 function editData(id) {
-    $.get(`/kriteria/${id}/edit`, function (data) {
-        $("#kriteria_id").val(data.id);
+    $.get(`/penyiar/${id}/edit`, function (data) {
+        $("#penyiar_id").val(data.id);
         $("#nama").val(data.nama);
         $("#tipe").val(data.tipe);
-        $("#modalKriteria").modal("show");
+        $("#modalPenyiar").modal("show");
     });
 }
 
-$("#form-kriteria").on("submit", function (e) {
+$("#form-penyiar").on("submit", function (e) {
     e.preventDefault();
 
-    let id = $("#kriteria_id").val();
-    let url = id ? `/kriteria/${id}` : "/kriteria";
+    let id = $("#penyiar_id").val();
+    let url = id ? `/penyiar/${id}` : "/penyiar";
     let method = id ? "PUT" : "POST";
 
     $.ajax({
@@ -66,9 +66,9 @@ $("#form-kriteria").on("submit", function (e) {
             _method: method, // spoofing method Laravel
         },
         success: function (response) {
-            $("#modalKriteria").modal("hide");
-            $("#form-kriteria")[0].reset();
-            $("#tabel-kriteria").DataTable().ajax.reload();
+            $("#modalPenyiar").modal("hide");
+            $("#form-penyiar")[0].reset();
+            $("#tabel-penyiar").DataTable().ajax.reload();
 
             Swal.fire({
                 title: "Sukses!",
@@ -95,11 +95,11 @@ function hapusData(id) {
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
         confirmButtonText: "Ya, hapus!",
-        cancelButtonText: "Batal"
+        cancelButtonText: "Batal",
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `/kriteria/${id}`,
+                url: `/penyiar/${id}`,
                 method: "POST",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr("content"),
@@ -110,18 +110,22 @@ function hapusData(id) {
                         title: "Berhasil!",
                         text: response.message || "Data berhasil dihapus.",
                         icon: "success",
-                        confirmButtonText: "Oke"
+                        confirmButtonText: "Oke",
                     }).then(() => {
                         // Reload data table atau halaman
-                        $("#tabel-kriteria").DataTable().ajax.reload();
+                        $("#tabel-penyiar").DataTable().ajax.reload();
                         // atau jika kamu ingin reload halaman penuh:
                         // location.reload();
                     });
                 },
                 error: function (xhr) {
                     console.error(xhr.responseText);
-                    Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus data.", "error");
-                }
+                    Swal.fire(
+                        "Gagal!",
+                        "Terjadi kesalahan saat menghapus data.",
+                        "error"
+                    );
+                },
             });
         }
     });

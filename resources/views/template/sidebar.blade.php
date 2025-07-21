@@ -16,6 +16,7 @@
             </div> --}}
             <a href="{{ route('kriteria.index') }}" class="nav-item nav-link {{request()->routeIs('kriteria.*') ? 'active' : ''}}"><i class="fa fa-th me-2"></i>Kriteria</a>
             <a href="{{ route('penilaian.index') }}" class="nav-item nav-link {{request()->routeIs('penilaian.*') ? 'active' : ''}}"><i class="fa fa-keyboard me-2"></i>Penilaian</a>
+            <a href="{{ route('penyiar.index') }}" class="nav-item nav-link {{request()->routeIs('penyiar.*') ? 'active' : ''}}"><i class="fa fa-keyboard me-2"></i>Penyiar</a>
         </div>
     </nav>
 </div>

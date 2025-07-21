@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\Dashboard;
-use App\Http\Controllers\PenilaianController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PenyiarController;
+use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\PenilaianController;
 
 Route::get('/', function () {
     return view('auth/login');
@@ -21,3 +22,7 @@ Route::resource('/kriteria', KriteriaController::class)->names('kriteria');
 
 Route::get('/penilaian/data', [PenilaianController::class, 'getData'])->name('penilaian.getData');
 Route::resource('/penilaian', PenilaianController::class)->names('penilaian');
+
+Route::get('/penyiar/data', [PenyiarController::class, 'getData'])->name('penyiar.getData');
+Route::resource('/penyiar', PenyiarController::class)->names('penyiar');
+
