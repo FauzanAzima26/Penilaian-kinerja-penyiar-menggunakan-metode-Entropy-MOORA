@@ -2,6 +2,7 @@
 <div class="modal fade" id="modalKriteria" tabindex="-1" aria-labelledby="modalKriteriaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form id="form-kriteria" class="modal-content">
+      <input type="hidden" name="id" id="kriteria_id">
       <div class="modal-header">
         <h5 class="modal-title" id="modalKriteriaLabel">Tambah Kriteria</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>

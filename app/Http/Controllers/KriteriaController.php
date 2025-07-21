@@ -29,14 +29,8 @@ class KriteriaController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tipe' => 'required|in:benefit,cost',
-        ]);
-
-        Kriteria::create($validated);
-
-        return response()->json(['success' => true]);
+        Kriteria::create($request->only('nama', 'tipe'));
+        return response()->json(['message' => 'Data berhasil ditambahkan']);
     }
 
     /**
@@ -50,25 +44,32 @@ class KriteriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $kriteria = Kriteria::findOrFail($id);
+        return response()->json($kriteria);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $kriteria = Kriteria::findOrFail($id);
+        $kriteria->update([
+            'nama' => $request->nama,
+            'tipe' => $request->tipe,
+        ]);
+
+        return response()->json(['message' => 'Data berhasil diupdate.']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $kriteria = Kriteria::findOrFail($id);
+        $kriteria->delete();
+
+        return response()->json(['message' => 'Data berhasil dihapus.']);
     }
 
     public function getData(Request $request)
