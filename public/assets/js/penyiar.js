@@ -24,8 +24,8 @@ $("#tabel-penyiar").DataTable({
             searchable: false,
             render: function (data, type, row) {
                 return `
-        <button onclick="editData(${row.id})" class="btn btn-warning btn-sm">Edit</button>
-        <button class="btn btn-sm btn-danger" onclick="hapusData(${row.id})">Hapus</button>
+        <button onclick="editData(${row.id})" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></button>
+        <button class="btn btn-sm btn-danger" onclick="hapusData(${row.id})"><i class="fa fa-trash-o"></i></button>
     `;
             },
         },

@@ -20,7 +20,7 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `<button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_kriteria}">Edit</button>`;
+                    return `<button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_kriteria}"><i class="fa fa-pencil-square-o"></i></button>`;
                 }
             }
         ]

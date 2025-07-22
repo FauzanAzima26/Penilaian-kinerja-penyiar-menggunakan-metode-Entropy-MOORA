@@ -6,7 +6,7 @@
         <div class="navbar-nav w-100">
             <a href="{{ route('dashboard.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('dashboard.*') ? 'active' : '' }}"><i
-                    class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    class="fa fa-home me-2"></i>Dashboard</a>
             {{-- <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                         class="fa fa-laptop me-2"></i>Elements</a>
@@ -18,17 +18,17 @@
             </div> --}}
             <a href="{{ route('kriteria.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('kriteria.*') ? 'active' : '' }}"><i
-                    class="fa fa-th me-2"></i>Kriteria</a>
+                    class="fa fa-clipboard me-2"></i>Kriteria</a>
             <a href="{{ route('penilaian.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('penilaian.*') ? 'active' : '' }}"><i
-                    class="fa fa-keyboard me-2"></i>Penilaian</a>
+                    class="fa fa-calculator me-2"></i>Penilaian</a>
             <a href="{{ route('penyiar.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('penyiar.*') ? 'active' : '' }}"><i
-                    class="fa fa-keyboard me-2"></i>Penyiar</a>
+                    class="fa fa-users me-2"></i>Penyiar</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="nav-item nav-link"><i
-                    class="fa fa-keyboard me-2"></i>Logout</button>
+                    class="fa fa-sign-out me-2"></i>Logout</button>
             </form>
         </div>
     </nav>
