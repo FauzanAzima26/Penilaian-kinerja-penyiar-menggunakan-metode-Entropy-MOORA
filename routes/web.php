@@ -24,7 +24,12 @@ Route::resource('/kriteria', KriteriaController::class)->names('kriteria');
 Route::post('/penilaian/update-nilai', [PenilaianController::class, 'updateNilai'])->name('penilaian.updateNilai');
 Route::get('/penilaian/data', [PenilaianController::class, 'getData'])->name('penilaian.getData');
 Route::resource('/penilaian', PenilaianController::class)->names('penilaian');
+
 Route::post('/perhitungan/hitung', [PerhitunganController::class, 'hitung'])->name('perhitungan.hitung');
+Route::get('/data-perankingan', [PerhitunganController::class, 'getData']);
+Route::get('/hasil', function () {
+    return view('hasil/index');
+})->name('hasil');
 
 Route::get('/penyiar/data', [PenyiarController::class, 'getData'])->name('penyiar.getData');
 Route::resource('/penyiar', PenyiarController::class)->names('penyiar');

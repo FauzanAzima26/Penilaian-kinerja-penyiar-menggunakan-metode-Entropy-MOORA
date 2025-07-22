@@ -25,6 +25,9 @@
             <a href="{{ route('penyiar.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('penyiar.*') ? 'active' : '' }}"><i
                     class="fa fa-users me-2"></i>Penyiar</a>
+            <a href="{{ route('hasil') }}"
+                class="nav-item nav-link {{ request()->routeIs('hasil') ? 'active' : '' }}"><i
+                    class="fa fa-trophy me-2"></i>Hasil</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="nav-item nav-link"><i

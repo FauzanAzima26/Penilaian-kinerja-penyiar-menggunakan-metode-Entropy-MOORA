@@ -172,4 +172,15 @@ class PerhitunganController extends Controller
 
         return redirect()->back()->with('success', 'Perhitungan berhasil dilakukan.');
     }
+
+    public function getData()
+    {
+        $data = DB::table('moora')
+            ->join('penyiar', 'moora.id_penyiar', '=', 'penyiar.id') // join agar bisa ambil nama
+            ->select('moora.id_penyiar', 'penyiar.nama', 'moora.nilai_akhir', 'moora.ranking')
+            ->orderBy('moora.ranking', 'asc')
+            ->get();
+
+        return response()->json(['data' => $data]);
+    }
 }
