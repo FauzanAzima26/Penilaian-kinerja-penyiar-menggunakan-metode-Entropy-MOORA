@@ -20,8 +20,10 @@ Route::resource('/dashboard', Dashboard::class)->names('dashboard');
 Route::get('/kriteria/data', [KriteriaController::class, 'getData'])->name('kriteria.data');
 Route::resource('/kriteria', KriteriaController::class)->names('kriteria');
 
+Route::post('/penilaian/update-nilai', [PenilaianController::class, 'updateNilai'])->name('penilaian.updateNilai');
 Route::get('/penilaian/data', [PenilaianController::class, 'getData'])->name('penilaian.getData');
 Route::resource('/penilaian', PenilaianController::class)->names('penilaian');
+
 
 Route::get('/penyiar/data', [PenyiarController::class, 'getData'])->name('penyiar.getData');
 Route::resource('/penyiar', PenyiarController::class)->names('penyiar');

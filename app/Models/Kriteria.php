@@ -15,4 +15,9 @@ class Kriteria extends Model
     ];
 
     public $timestamps = true;
+
+    public function penilaian()
+    {
+        return $this->hasMany(Penilaian::class, 'id_kriteria');
+    }
 }

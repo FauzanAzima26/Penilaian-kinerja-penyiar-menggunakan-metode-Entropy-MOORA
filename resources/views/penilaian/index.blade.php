@@ -9,23 +9,18 @@
                     <label for="dropdown-penyiar">Pilih Penyiar</label>
                     <select id="dropdown-penyiar" class="form-control">
                         <option value="">-- Pilih Penyiar --</option>
-                        @foreach($penyiar as $p)
+                        @foreach ($penyiar as $p)
                             <option value="{{ $p->id }}">{{ $p->nama }}</option>
                         @endforeach
                     </select>
                 </div>
-
-                <button class="btn btn-success mb-3" id="btn-tambah" data-bs-toggle="modal" data-bs-target="#modalPenilaian">
-                    <i class="fa fa-plus"></i> Tambah Penilaian
-                </button>
 
                 <table id="tabel-penilaian" class="table table-striped">
                     <thead>
                         <tr>
                             <th>Kriteria</th>
                             <th>Nilai</th>
-                            <th>Evaluator</th>
-                            <th>Waktu</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -54,9 +49,18 @@ $(document).ready(function () {
         },
         columns: [
             { data: 'kriteria' },
-            { data: 'nilai' },
-            { data: 'evaluator' },
-            { data: 'created_at' }
+            {
+                data: 'nilai',
+                render: function (data) {
+                    return parseFloat(data).toFixed(2);
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `<button class="btn btn-sm btn-primary btn-edit" data-id="${row.id_kriteria}">Edit</button>`;
+                }
+            }
         ]
     });
 
@@ -65,55 +69,52 @@ $(document).ready(function () {
         table.ajax.reload();
     });
 
-    $('#btn-tambah').on('click', function () {
-        penyiarId = $('#dropdown-penyiar').val();
-        if (!penyiarId) {
-            alert('Pilih penyiar terlebih dahulu!');
-            $('#modalPenilaian').modal('hide');
-            return;
-        }
+    $('#tabel-penilaian tbody').on('click', '.btn-edit', function () {
+        const rowData = table.row($(this).parents('tr')).data();
 
-        let formIsi = `<input type="hidden" name="id_penyiar" value="${penyiarId}">`;
-
-        kriteria.forEach(k => {
-            formIsi += `
-                <div class="mb-3">
-                    <label class="form-label">${k.nama}</label>
-                    <input type="number" name="nilai[${k.id}]" class="form-control" min="0" step="1" required>
-                </div>
-            `;
-        });
-
-        $('#form-isi-kriteria').html(formIsi);
-    });
-
-    $('#form-penilaian').on('submit', function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: '{{ route("penilaian.store") }}',
-            method: 'POST',
-            data: $(this).serialize(),
-            success: function () {
-                $('#modalPenilaian').modal('hide');
-                $('#form-penilaian')[0].reset();
-                table.ajax.reload();
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: 'Penilaian berhasil disimpan'
-                });
+        Swal.fire({
+            title: `Edit Nilai - ${rowData.kriteria}`,
+            input: 'number',
+            inputValue: rowData.nilai,
+            inputAttributes: {
+                min: 0,
+                step: 0.01
             },
-            error: function (err) {
-                console.error(err.responseText);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal',
-                    text: 'Terjadi kesalahan saat menyimpan'
+            showCancelButton: true,
+            confirmButtonText: 'Simpan',
+            cancelButtonText: 'Batal',
+            preConfirm: (value) => {
+                if (value === '' || isNaN(value)) {
+                    Swal.showValidationMessage('Nilai tidak valid!');
+                } else {
+                    return value;
+                }
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                rowData.nilai = parseFloat(result.value);
+                table.row($(this).parents('tr')).data(rowData).draw();
+
+                $.ajax({
+                    url: '{{ route("penilaian.updateNilai") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id_penyiar: penyiarId,
+                        id_kriteria: rowData.id_kriteria,
+                        nilai: rowData.nilai
+                    },
+                    success: () => {
+                        Swal.fire('Berhasil', 'Nilai berhasil diubah', 'success');
+                    },
+                    error: () => {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat mengubah nilai', 'error');
+                    }
                 });
             }
         });
     });
 });
+
 </script>
 @endpush
