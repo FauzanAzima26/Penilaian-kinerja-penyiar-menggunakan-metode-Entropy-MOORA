@@ -58,7 +58,9 @@
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            @include('template/navbar')
+            @if (Auth::check())
+                @include('template.navbar')
+            @endif
             <!-- Navbar End -->
 
 

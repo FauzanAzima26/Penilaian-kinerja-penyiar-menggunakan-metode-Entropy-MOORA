@@ -28,11 +28,14 @@
             <a href="{{ route('hasil') }}"
                 class="nav-item nav-link {{ request()->routeIs('hasil') ? 'active' : '' }}"><i
                     class="fa fa-trophy me-2"></i>Hasil</a>
-            <form action="{{ route('logout') }}" method="POST">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
-                <button type="submit" class="nav-item nav-link"><i
-                    class="fa fa-sign-out me-2"></i>Logout</button>
             </form>
+
+            <a href="#" class="nav-item nav-link"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fa fa-sign-out me-2"></i>Logout
+            </a>
         </div>
     </nav>
 </div>
