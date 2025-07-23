@@ -38,8 +38,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
 </head>
 
-<body>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
+<body class="d-flex flex-column min-vh-100">
+    <div class="container-xxl position-relative bg-white d-flex p-0 w-100 flex-column">
         <!-- Spinner Start -->
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -56,23 +56,25 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content flex-grow-1 d-flex flex-column">
             <!-- Navbar Start -->
             @if (Auth::check())
                 @include('template.navbar')
             @endif
             <!-- Navbar End -->
 
-
-            @yield('content')
+            <!-- Halaman Konten -->
+            <main class="flex-grow-1">
+                @yield('content')
+            </main>
 
 
             <!-- Footer Start -->
             @include('template/footer')
             <!-- Footer End -->
+
         </div>
         <!-- Content End -->
-
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
